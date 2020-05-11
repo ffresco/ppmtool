@@ -21,6 +21,11 @@ public interface ProjectRepository extends CrudRepository<Project,Long>{
     
     Project findByProjectIdentifier(String projectID);
 
+    @Override
+    public Iterable<Project> findAll();
+    
+    
+
     
     
 }
