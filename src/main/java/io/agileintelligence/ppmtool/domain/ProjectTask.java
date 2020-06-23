@@ -5,12 +5,17 @@
  */
 package io.agileintelligence.ppmtool.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Date;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.validation.constraints.NotBlank;
@@ -33,10 +38,15 @@ public class ProjectTask {
     private String status;
     private Integer priority;
     private Date dueDate;
+
     //ManyToOne with Backlog
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
+    @JoinColumn(name="backlog_id", updatable = false, nullable = false)
+    @JsonIgnore
+    private Backlog backlog;
 
     @Column(updatable = false)
-    private String projectIdentifer;
+    private String projectIdentifier;
     private Date create_At;
     private Date update_At;
 
@@ -100,11 +110,11 @@ public class ProjectTask {
     }
 
     public String getProjectIdentifer() {
-        return projectIdentifer;
+        return projectIdentifier;
     }
 
     public void setProjectIdentifer(String projectIdentifer) {
-        this.projectIdentifer = projectIdentifer;
+        this.projectIdentifier = projectIdentifer;
     }
 
     public Date getCreate_At() {
@@ -133,19 +143,27 @@ public class ProjectTask {
         this.update_At = new Date();
     }
 
+    public Backlog getBacklog() {
+        return backlog;
+    }
+
+    public void setBacklog(Backlog backlog) {
+        this.backlog = backlog;
+    }
+
+    public String getProjectIdentifier() {
+        return projectIdentifier;
+    }
+
+    public void setProjectIdentifier(String projectIdentifier) {
+        this.projectIdentifier = projectIdentifier;
+    }
+
     @Override
     public String toString() {
-        return "ProjectTask{" +
-                "id=" + id +
-                ", projectSequence='" + projectSequence + '\'' +
-                ", summary='" + summary + '\'' +
-                ", acceptanceCriteria='" + acceptanceCriteria + '\'' +
-                ", status='" + status + '\'' +
-                ", priority=" + priority +
-                ", dueDate=" + dueDate +
-                ", projectIdentifer='" + projectIdentifer + '\'' +
-                ", create_At=" + create_At +
-                ", update_At=" + update_At +
-                '}';
+        return "ProjectTask{" + "id=" + id + ", projectSequence=" + projectSequence + ", summary=" + summary + ", acceptanceCriteria=" + acceptanceCriteria + ", status=" + status + ", priority=" + priority + ", dueDate=" + dueDate + ", backlog=" + backlog + ", projectIdentifier=" + projectIdentifier + ", create_At=" + create_At + ", update_At=" + update_At + '}';
     }
+
+    
+    
 }
