@@ -6,6 +6,7 @@
 package io.agileintelligence.ppmtool.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -50,6 +51,7 @@ public class Project {
     private Date updated_At;
     
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "project")
+    @JsonIgnore
     private Backlog backlog;
 
 
