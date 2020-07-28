@@ -39,7 +39,10 @@ public class Backlog {
     private Project project;
 
     //OneToMany projecttasks
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "backlog")
+    @OneToMany(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER, mappedBy = "backlog", orphanRemoval = true)
+    //importante orphanRemoval (si borro el backlog borra las task)
+    //Cascade Refresh: So if entity A has a reference to entity B, and that reference is annotated with @CascadeType.REFRESH, and EntityManager.refresh(A) is called, then EntityManager.refresh(B) is implicitly called also.
+    
     private List<ProjectTask> projectTasks = new ArrayList<>();
 
 
