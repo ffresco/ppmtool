@@ -91,7 +91,7 @@ public class ProjectTaskService {
             throw new ProjectNotFoundException("Project Task '" + pt_id + "' does not exist in project: '" + backlog_id);
         }
 
-        return projectTaskRepository.findByProjectSequence(pt_id);
+        return projectTask;
     }
 
     public ProjectTask updateByProjectSequence(ProjectTask updatedTask, String backlog_id, String pt_id) {
