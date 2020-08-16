@@ -24,6 +24,8 @@ public interface ProjectRepository extends CrudRepository<Project,Long>{
     @Override
     public Iterable<Project> findAll();
     
+    Iterable<Project> findAllByProjectLeader(String username);
+    
     
 
     
